@@ -11,7 +11,7 @@ import {
 
 import CustomHome from "@/components/custom-home";
 import * as z from "zod";
-import { useForm } from "react-hook-form";
+import { get, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { formSchema } from "@/components/form-schema";
 import { Label } from "@radix-ui/react-dropdown-menu";
@@ -208,17 +208,26 @@ export default function CustomForm() {
         return null;
       }
       console.log(file.name);
-      const { publicURL, error: urlError } = supabase.storage
-        .from("profile-pictures")
-        .getPublicUrl(file.name);
-      if (urlError) {
-        console.error("Error getting file URL:", urlError.message);
-        return null;
-      }
-      console.log("File uploaded successfully!", publicURL);
-      return publicURL;
+      return true;
     } catch (error) {
       console.error("Error in uploadProfilePicture:", error);
+      return null;
+    }
+  };
+
+  const getProfilePictureUrl = async (fileName) => {
+    try {
+      const { data, error } = await supabase.storage
+        .from("profile-pictures")
+        .getPublicUrl(fileName);
+      if (error) {
+        console.error("Error getting file URL:", error.message);
+        return null;
+      }
+      console.log("File URL retrieved successfully!", data.publicUrl);
+      return data.publicUrl;
+    } catch (error) {
+      console.error("Error in getProfilePicture:", error);
       return null;
     }
   };
@@ -238,8 +247,8 @@ export default function CustomForm() {
         console.log("No file selected!");
         return;
       }
-
-      const imageUrl = await uploadProfilePicture(file);
+      await uploadProfilePicture(file);
+      const imageUrl = await getProfilePictureUrl(file.name);
 
       // Check if dormer exists
       const dormerExists = await checkDormerExists(data.email);

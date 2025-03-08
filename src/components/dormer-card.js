@@ -90,20 +90,20 @@ export default function DormerCard() {
                   <Phone className="h-5" />
                   <p className="ml-2 text-sm">{dormerData[0]?.contact}</p>
                 </div>
-                <div>
+                <div className="mt-2">
                   <p>Course</p>
                   <p className="font-bold text-xl uppercase">
                     {dormerData[0]?.course}
                   </p>
                   <p className="italic">{dormerData[0]?.year} year</p>
                 </div>
-                <div>
+                <div className="mt-2">
                   <p>Dormitory</p>
                   <p className="font-bold text-xl uppercase">
                     {dormerData[0]?.dormName}
                   </p>
                 </div>
-                <div>
+                <div className="mt-2">
                   <p>Date of Stay</p>
                   <p className="font-bold text-lg uppercase">
                     {dormerData[0]?.dateOfStay}
