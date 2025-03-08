@@ -115,6 +115,12 @@
   --sidebar-border: oklch(0.279 0.041 260.031);
   --sidebar-ring: oklch(0.446 0.043 257.281);
 }
+html,
+body {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
 
 @layer base {
   * {

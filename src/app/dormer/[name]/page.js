@@ -24,7 +24,7 @@ export default function Dormer() {
   const [queryClient] = useState(() => new QueryClient());
   return (
     <QueryClientProvider client={queryClient}>
-      <CustomHome>
+      <CustomHome className="flex flex-col min-h-screen">
         <DormerCard />
       </CustomHome>
     </QueryClientProvider>

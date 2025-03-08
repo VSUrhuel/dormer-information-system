@@ -53,7 +53,7 @@ export default function Search() {
     const [name, email] = value.split("|");
 
     setTimeout(() => {
-      router.push(`/dormer/${name}?email=${email}&name=${name}`);
+      router.push(`/dormer/${name}?email=${email}`);
     }, 100);
     setOpen(false);
   };

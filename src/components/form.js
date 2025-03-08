@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Card,
   CardContent,
@@ -325,91 +325,112 @@ export default function CustomForm() {
     }
   };
 
-  const { theme } = useTheme();
+  const { theme } = useTheme(); // Get the current theme
 
-  const isDark = theme === "dark"; // Defaults to light mode
+  const [mounted, setMounted] = useState(false); // To track when the theme is mounted
 
+  useEffect(() => {
+    setMounted(true); // Set to true once component is mounted
+  }, []);
+
+  if (!mounted) return null; // Return nothing until mounted
+
+  const isDark = theme === "dark";
+  console.log(isDark);
+
+  console.log(isDark);
   return (
-    <Card className="md:max-w-1/2 mx-auto">
-      <CardHeader>
-        <img
-          src={isDark ? "/white-icon.png" : "/dark-icon.png"}
-          className="w-40 h-full lg:w-60"
-          alt="White Icon"
-        />
+    <div className="md:max-w-1/2 mx-auto ">
+      <Button
+        onClick={() => {
+          window.location.href = "/dormers";
+        }}
+        variant={"outline"}
+        className={"flex mb-4 right-0 items-end justify-end ml-auto"}
+      >
+        View All Dormers
+      </Button>
+      <Card>
+        <CardHeader>
+          <img
+            src={isDark ? "/white-icon.png" : "/dark-icon.png"}
+            className="w-40 h-full lg:w-60"
+            alt="White Icon"
+          />
 
-        <CardTitle>Dormer Information</CardTitle>
-        <CardDescription>
-          Kindly fill up this form with the dormer's information.
-        </CardDescription>
-      </CardHeader>
+          <CardTitle>Dormer Information</CardTitle>
+          <CardDescription>
+            Kindly fill up this form with the dormer's information.
+          </CardDescription>
+        </CardHeader>
 
-      <CardContent>
-        <Form {...form}>
-          <form onSubmit={form.handleSubmit(handleSubmitForm)}>
-            {preview && (
-              <img
-                src={preview}
-                alt="Profile Picture Preview"
-                className="w-40 h-full object-cover mb-4 rounded-lg"
-              />
-            )}
-            {formFields.map((item) => (
-              <FormField
-                control={form.control}
-                name={item.name}
-                key={item.name}
-                render={({ field: { onChange, value, ...rest } }) => (
-                  <FormItem className="pb-4">
-                    <FormLabel>{item.label}</FormLabel>
-                    <FormControl>
-                      {item.type === "select" ? (
-                        <Select onValueChange={onChange} value={value}>
-                          <SelectTrigger>
-                            <SelectValue placeholder={item.placeholder} />
-                          </SelectTrigger>
-                          <SelectContent>
-                            {item.options.map((option) => (
-                              <SelectItem key={option} value={option}>
-                                {option}
-                              </SelectItem>
-                            ))}
-                          </SelectContent>
-                        </Select>
-                      ) : item.type === "file" ? (
-                        <Input
-                          type="file"
-                          accept="image/*"
-                          onChange={(e) => {
-                            handleFileChange(e);
-                          }}
-                          {...rest}
-                        />
-                      ) : item.type === "date" ? (
-                        <Input onChange={onChange} {...rest} type="date" />
-                      ) : (
-                        <Input
-                          onChange={onChange}
-                          value={value}
-                          {...rest}
-                          placeholder={item.placeholder}
-                          type={item.type || "text"}
-                        />
-                      )}
-                    </FormControl>
-                    <FormMessage>
-                      {form.formState.errors[item.name]?.message}
-                    </FormMessage>
-                  </FormItem>
-                )}
-              />
-            ))}
-            <Button type="submit" variant="outline" className="mt-2 w-full">
-              SUBMIT
-            </Button>
-          </form>
-        </Form>
-      </CardContent>
-    </Card>
+        <CardContent>
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(handleSubmitForm)}>
+              {preview && (
+                <img
+                  src={preview}
+                  alt="Profile Picture Preview"
+                  className="w-40 h-full object-cover mb-4 rounded-lg"
+                />
+              )}
+              {formFields.map((item) => (
+                <FormField
+                  control={form.control}
+                  name={item.name}
+                  key={item.name}
+                  render={({ field: { onChange, value, ...rest } }) => (
+                    <FormItem className="pb-4">
+                      <FormLabel>{item.label}</FormLabel>
+                      <FormControl>
+                        {item.type === "select" ? (
+                          <Select onValueChange={onChange} value={value}>
+                            <SelectTrigger>
+                              <SelectValue placeholder={item.placeholder} />
+                            </SelectTrigger>
+                            <SelectContent>
+                              {item.options.map((option) => (
+                                <SelectItem key={option} value={option}>
+                                  {option}
+                                </SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
+                        ) : item.type === "file" ? (
+                          <Input
+                            type="file"
+                            accept="image/*"
+                            onChange={(e) => {
+                              handleFileChange(e);
+                            }}
+                            {...rest}
+                          />
+                        ) : item.type === "date" ? (
+                          <Input onChange={onChange} {...rest} type="date" />
+                        ) : (
+                          <Input
+                            onChange={onChange}
+                            value={value}
+                            {...rest}
+                            placeholder={item.placeholder}
+                            type={item.type || "text"}
+                          />
+                        )}
+                      </FormControl>
+                      <FormMessage>
+                        {form.formState.errors[item.name]?.message}
+                      </FormMessage>
+                    </FormItem>
+                  )}
+                />
+              ))}
+              <Button type="submit" variant="outline" className="mt-2 w-full">
+                SUBMIT
+              </Button>
+            </form>
+          </Form>
+        </CardContent>
+      </Card>
+    </div>
   );
 }

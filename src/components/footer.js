@@ -3,7 +3,7 @@ import React from "react";
 export default function Footer() {
   return (
     <footer className="backdrop-blur bg-background/95 border-t border-muted flex flex-col items-center py-4 text-sm text-gray-500 dark:text-gray-400">
-      <div className="gridjustify-center px-6 text-center">
+      <div className="grid justify-center px-6 text-center">
         <p>
           Developed by{" "}
           <a
@@ -15,7 +15,6 @@ export default function Footer() {
             Laurente, J.R.
           </a>
         </p>
-
         <p>© 2025 Laurente. All rights reserved.</p>
       </div>
     </footer>
