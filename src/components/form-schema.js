@@ -37,10 +37,6 @@ export const formSchema = z.object({
     .string()
     .min(5, { message: "Dorm name must be at least 5 characters long." }),
 
-  dormerType: z.enum(["New", "Old"], {
-    message: "Please select either 'New' or 'Old' dormer type.",
-  }),
-
   dateOfStay: z.string().refine(
     (val) => {
       const date = new Date(val);
