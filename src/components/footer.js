@@ -2,7 +2,7 @@ import React from "react";
 
 export default function Footer() {
   return (
-    <footer className="backdrop-blur bg-background/95 border-t border-muted flex flex-col items-center py-4 text-sm text-gray-500 dark:text-gray-400">
+    <footer className="backdrop-blur bg-background/95 border-t border-muted flex flex-col items-center border-b py-4 text-sm text-gray-500 dark:text-gray-400">
       <div className="grid justify-center px-6 text-center">
         <p>
           Developed by{" "}
